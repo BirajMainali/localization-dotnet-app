@@ -1,0 +1,40 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@using Localization.Resources
+@model List<Localization.Models.Employee>
+@inject IHtmlLocalizer<SharedResource> lang
+@{
+    ViewBag.Title = "Employee List";
+    Layout = "_Layout";
+}
+<div class="card">
+    <div class="card-header">
+        <div class="card-title">@lang["Employee"]</div>
+    </div>
+    <div class="card-body">
+        
+        <table class="table table-hover table-striped table-bordered table-sm">
+            <thead>
+            <tr>
+                <td>@lang["SN"]</td>
+                <td>@lang["Name"]</td>
+                <td>@lang["Age"]</td>
+                <td>@lang["Salary"]</td>
+            </tr>
+            </thead>
+            <tbody>
+            @{
+                var sn = 1;
+                foreach (var e in Model)
+                {
+                    <tr>
+                        <td>@(sn++)</td>
+                        <td>@e.Name</td>
+                        <td>@e.Age</td>
+                        <td>@e.Salary</td>
+                    </tr>
+                }
+            }
+            </tbody>
+        </table>
+    </div>
+</div>
