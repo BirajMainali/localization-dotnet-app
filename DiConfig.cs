@@ -12,26 +12,23 @@ namespace Localization
     {
         public static void UseConfiguration(this IServiceCollection services)
         {
-            services
-                .AddLocalization(options => options.ResourcesPath = "Resources");
-            services.AddMvc().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
-                .AddDataAnnotationsLocalization(o =>
-                {
-                    o.DataAnnotationLocalizerProvider = (type, factory) =>
-                        factory.Create(typeof(SharedResource));
-                });
-
             services.Configure<RequestLocalizationOptions>(o =>
             {
                 var supportedCultures = new List<CultureInfo>()
                 {
                     new CultureInfo("en"),
-                    new CultureInfo("ne-np")
+                    new CultureInfo("ne-NP")
                 };
                 o.DefaultRequestCulture = new RequestCulture("en");
                 o.SupportedCultures = supportedCultures;
                 o.SupportedUICultures = supportedCultures;
             });
+            services.AddControllersWithViews().AddViewLocalization(LanguageViewLocationExpanderFormat.Suffix)
+                .AddDataAnnotationsLocalization(o =>
+                {
+                    o.DataAnnotationLocalizerProvider = (type, factory) =>
+                        factory.Create(typeof(SharedResource));
+                });
         }
     }
 }
